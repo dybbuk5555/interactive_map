@@ -12,11 +12,14 @@ import banner5 from "./assets/banner5.gif";
 import banner6 from "./assets/banner6.gif";
 import clock from "./assets/clock.png";
 import circle from "./assets/circle.png";
+import { Container } from "postcss";
 
 class App extends Component {
     constructor(props) {
         super(props)
         this.prismaZoom = createRef()
+        this.scrollBooster = createRef();
+
         this.state = {
             zoom: 1,
             showModal: false,
@@ -31,6 +34,7 @@ class App extends Component {
     onClickOnZoomOut = () => {
         this.prismaZoom.current.zoomOut(1)
     }
+
 
     modal1 = () => {
         this.setState({ showModal: true });
@@ -62,80 +66,109 @@ class App extends Component {
         this.setState({ order: 5 });
     }
 
+    componentDidMount() {
+        console.log(this.scrollBooster);
+    }
+
+    onScrollBoostRefChange(scrollbooster) {
+        console.log(scrollbooster);
+        const [relX, relY] = [(scrollbooster.content.width - scrollbooster.viewport.width) / 2, (scrollbooster.content.height - scrollbooster.viewport.height) / 2];
+        console.log(relX);
+        scrollbooster?.setPosition({
+            x: relX,
+            y: relY
+        });
+        this.scrollBooster.current = scrollbooster;
+    }
+
     render() {
+        console.log(this.viewport);
         return (
             <>
-                <ScrollBoost scrollMode="transform" emulateScroll >
-                    {({ viewport, scrollbooster }) => (
-                        <>
-                            <div className="relative left-8 top-12  md:left-20 lg:left-32  space-x-2 z-10">
-                                <div className="shadow inline-block">
-                                    <button
-                                        onClick={(event) => {
-                                            if (scrollbooster) {
-                                                const layoutRect = event.currentTarget.parentNode.getBoundingClientRect();
-                                                const [relX, relY] = [(scrollbooster.getState().position.x / 2) + 7.5 * layoutRect.width, (scrollbooster.getState().position.y / 2) + 9.2 * layoutRect.height];
-                                                this.prismaZoom.current.zoomToZone(relX, relY, layoutRect.width, layoutRect.height);
-                                            }
-                                        }}
-                                        className="w-full flex text-[12px] items-center justify-center border-transparent uppercase px-2 py-1 rounded-sm text-button bg-button_color-1"
-                                    >
-                                        Zoom In
-                                    </button>
+                <ScrollBoost 
+                    scrollMode="transform" 
+                    emulateScroll
+                >
+                    {({ viewport, scrollbooster }) => {
+                        if (scrollbooster && this.scrollBooster.current !== scrollbooster) {
+                            this.onScrollBoostRefChange(scrollbooster);
+                        }
+                        return (
+                        
+                            <>
+                                <div className="relative left-8 top-12  md:left-20 lg:left-32  space-x-2 z-10">
+                                    <div className="shadow inline-block">
+                                        <button
+                                            onClick={(event) => {
+                                                if (scrollbooster) {
+                                                    const layoutRect = event.currentTarget.parentNode.getBoundingClientRect();
+                                                    const [relX, relY] = [(scrollbooster.getState().position.x / 2) + 7.5 * layoutRect.width, (scrollbooster.getState().position.y / 2) + 10.5 * layoutRect.height];
+                                                    this.prismaZoom.current.zoomToZone(relX, relY, layoutRect.width, layoutRect.height);
+                                                }
+                                            }}
+                                            className="w-full flex text-[12px] items-center justify-center border-transparent uppercase px-2 py-1 rounded-sm text-button bg-button_color-1"
+                                        >
+                                            Zoom In
+                                        </button>
+                                    </div>
+                                    <div className="shadow inline-block">
+                                        <button
+                                            onClick={this.onClickOnZoomOut}
+                                            className="w-full flex text-[12px] items-center justify-center border-transparent uppercase px-2 py-1 rounded-sm text-button bg-button_color-1"
+                                        >
+                                            Zoom Out
+                                        </button>
+                                    </div>
+                                    <div className="shadow inline-block">
+                                        <button
+                                            onClick={() => {
+                                                const [relX, relY] = [(scrollbooster.content.width - scrollbooster.viewport.width) / 2, (scrollbooster.content.height - scrollbooster.viewport.height) / 2];
+                                                scrollbooster.scrollTo({x: relX, y: relY});
+                                            }}
+                                            className="w-full flex text-[12px] items-center justify-center border-transparent uppercase px-2 py-1 rounded-sm text-button bg-button_color-1"
+                                        >
+                                            Reset
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="shadow inline-block">
-                                    <button
-                                        onClick={this.onClickOnZoomOut}
-                                        className="w-full flex text-[12px] items-center justify-center border-transparent uppercase px-2 py-1 rounded-sm text-button bg-button_color-1"
-                                    >
-                                        Zoom Out
-                                    </button>
+                                            
+                                <div className="overflow-hidden w-full md:w-[80vw] 2xl:w-full h-container 2xl:h-[500px] mx-auto" ref={viewport}>
+                                    <div>
+                                        <PrismaZoom className="App-zoom" onZoomChange={this.onZoomChange} maxZoom={2} ref={this.prismaZoom}>
+                                            <img className="max-w-none w-[5000px] h-auto" src={map} alt="map" />
+                                            <img className="animate-cloud max-w-none w-[4000px] h-auto absolute top-[70px]" src={cloud} alt="cloud" />
+                                            <button onClick={this.modal1} className="absolute left-buttonx1 bottom-buttony1 bg-button1 rounded-full py-1 px-3 items-center flex text-white text-lg w-fit">
+                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                                <span>Nuestros Planteles</span>
+                                            </button>
+                                            <button onClick={this.modal2} className="absolute left-buttonx2 bottom-buttony2 bg-button2 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
+                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                                <span>Oficina Central</span>
+                                            </button>
+                                            <button onClick={this.modal3} className="absolute left-buttonx3 bottom-buttony3 bg-button3 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
+                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                                <span>Historia</span>
+                                            </button>
+                                            <button onClick={this.modal4} className="absolute left-buttonx4 bottom-buttony4 bg-button4 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
+                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                                <span>Comunidades</span>
+                                            </button>
+                                            <button onClick={this.modal5} className="absolute left-buttonx5 bottom-buttony5 bg-button5 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
+                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                                <span>Producción Responsable</span>
+                                            </button>
+                                            <button onClick={this.modal6} className="absolute left-buttonx6 bottom-buttony6 bg-button6 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
+                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                                <span>Plantas Industriales</span>
+                                            </button>
+                                        </PrismaZoom>
+                                    </div>
                                 </div>
-                                <div className="shadow inline-block">
-                                    <button
-                                        onClick={() => {
-                                            scrollbooster.scrollTo();
-                                        }}
-                                        className="w-full flex text-[12px] items-center justify-center border-transparent uppercase px-2 py-1 rounded-sm text-button bg-button_color-1"
-                                    >
-                                        Reset
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="overflow-hidden w-full md:w-[80vw] 2xl:w-full h-container 2xl:h-[500px] mx-auto" ref={viewport}>
-                                <div>
-                                    <PrismaZoom className="App-zoom" onZoomChange={this.onZoomChange} maxZoom={2} ref={this.prismaZoom}>
-                                        <img className="max-w-none w-map h-auto" src={map} alt="map" />
-                                        <img className="animate-cloud max-w-none w-cloud h-auto absolute top-0" src={cloud} id="cloud" alt="cloud" />
-                                        <button onClick={this.modal1} className="absolute left-buttonx1 bottom-buttony1 bg-button1 rounded-full py-1 px-3 items-center flex text-white text-lg w-fit">
-                                            <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
-                                            <span>Nuestros Planteles</span>
-                                        </button>
-                                        <button onClick={this.modal2} className="absolute left-buttonx2 bottom-buttony2 bg-button2 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
-                                            <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
-                                            <span>Oficina Central</span>
-                                        </button>
-                                        <button onClick={this.modal3} className="absolute left-buttonx3 bottom-buttony3 bg-button3 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
-                                            <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
-                                            <span>Historia</span>
-                                        </button>
-                                        <button onClick={this.modal4} className="absolute left-buttonx4 bottom-buttony4 bg-button4 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
-                                            <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
-                                            <span>Comunidades</span>
-                                        </button>
-                                        <button onClick={this.modal5} className="absolute left-buttonx5 bottom-buttony5 bg-button5 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
-                                            <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
-                                            <span>Producción Responsable</span>
-                                        </button>
-                                        <button onClick={this.modal6} className="absolute left-buttonx6 bottom-buttony6 bg-button6 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
-                                            <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
-                                            <span>Plantas Industriales</span>
-                                        </button>
-                                    </PrismaZoom>
-                                </div>
-                            </div>
-                        </>
-                    )}
+                            </>
+                        
+                        
+                        )
+                    }}
                 </ScrollBoost>
                 {this.state.showModal ? (
                     <>
