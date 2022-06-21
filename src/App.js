@@ -50,30 +50,56 @@ export default function App() {
           <h1 className="text-lg font-bold md:text-xl py-4">
             Descubre nuestros procesos navegando en nuestro mundo
           </h1>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 text-center gap-10 px-20 mb-16">
+          <div className="-z-10 absolute mt-10 md:mt-8 lg:mt-7 xl:mt-11 2xl:mt-14 w-full h-10 left-0 bg-title opacity-20">
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 text-center gap-10 pr-20 pl-2 mb-16 text-title">
             <div>
-              <img className="rounded-2xl" src={img1} alt="Historia" />
-              <h1 className="text-sm font-bold mt-6 px-10">Historia</h1>
+              <div className="flex justify-between items-center space-x-5 relative">
+                <div className="tracking-[.25em] opacity-0">..</div>
+                <img className="rounded-2xl" src={img1} alt="Historia" />
+                <div className="tracking-[.25em]">..</div>
+              </div>
+              <h1 className="text-sm font-bold mt-6 pl-16 text-general">Historia</h1>
             </div>
             <div>
-              <img className="rounded-2xl" src={img2} alt="Oficina Central" />
-              <h1 className="text-sm font-bold mt-6 px-10">Oficina Central</h1>
+              <div className="flex justify-between items-center space-x-5">
+                <font className="tracking-[.25em]">..</font>
+                <img className="rounded-2xl" src={img2} alt="Oficina Central" />
+                <font className="tracking-[.25em]">..</font>
+              </div>
+              <h1 className="text-sm font-bold mt-6 pl-16 text-general">Oficina Central</h1>
             </div>
             <div>
-              <img className="rounded-2xl" src={img3} alt="Nuestros Planteles" />
-              <h1 className="text-sm font-bold mt-6 px-10">Nuestros Planteles</h1>
+              <div className="flex justify-between items-center space-x-5">
+                <font className="tracking-[.25em]">..</font>
+                <img className="rounded-2xl" src={img3} alt="Nuestros Planteles" />
+                <font className="tracking-[.25em]">..</font>
+              </div>
+              <h1 className="text-sm font-bold mt-6 pl-16 text-general">Nuestros Planteles</h1>
             </div>
             <div>
-              <img className="rounded-2xl" src={img4} alt="Plantas Industriales" />
-              <h1 className="text-sm font-bold mt-6 px-10">Plantas Industriales</h1>
+              <div className="flex justify-between items-center space-x-5">
+                <font className="tracking-[.25em]">..</font>
+                <img className="rounded-2xl" src={img4} alt="Plantas Industriales" />
+                <font className="tracking-[.25em]">..</font>
+              </div>
+              <h1 className="text-sm font-bold mt-6 pl-16 text-general">Plantas Industriales</h1>
             </div>
             <div>
-              <img className="rounded-2xl" src={img5} alt="Producción Responsable" />
-              <h1 className="text-sm font-bold mt-6 px-10">Producción Responsable</h1>
+              <div className="flex justify-between items-center space-x-5">
+                <font className="tracking-[.25em]">..</font>
+                <img className="rounded-2xl" src={img5} alt="Producción Responsable" />
+                <font className="tracking-[.25em]">..</font>
+              </div>
+              <h1 className="text-sm font-bold mt-6 pl-16 text-general">Producción Responsable</h1>
             </div>
             <div>
-              <img className="rounded-2xl" src={img6} alt="Comunidades" />
-              <h1 className="text-sm font-bold mt-6 px-10">Comunidades</h1>
+              <div className="flex justify-between items-center space-x-5">
+                <font className="tracking-[.25em]">..</font>
+                <img className="rounded-2xl" src={img6} alt="Comunidades" />
+                <font className="tracking-[.25em] opacity-0">..</font>
+              </div>
+              <h1 className="text-sm font-bold mt-6 pl-16 text-general">Comunidades</h1>
             </div>
           </div>
         </div>

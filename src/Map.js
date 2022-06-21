@@ -102,7 +102,7 @@ class App extends Component {
                                             onClick={(event) => {
                                                 if (scrollbooster) {
                                                     const layoutRect = event.currentTarget.parentNode.getBoundingClientRect();
-                                                    const [relX, relY] = [(scrollbooster.getState().position.x / 2) + 7.5 * layoutRect.width, (scrollbooster.getState().position.y / 2) + 10.5 * layoutRect.height];
+                                                    const [relX, relY] = [(scrollbooster.getState().position.x / 2) + 6.5 * layoutRect.width, (scrollbooster.getState().position.y / 2) + 9.5 * layoutRect.height];
                                                     this.prismaZoom.current.zoomToZone(relX, relY, layoutRect.width, layoutRect.height);
                                                 }
                                             }}
@@ -137,28 +137,28 @@ class App extends Component {
                                         <PrismaZoom className="App-zoom" onZoomChange={this.onZoomChange} maxZoom={2} ref={this.prismaZoom}>
                                             <img className="max-w-none w-[5000px] h-auto" src={map} alt="map" />
                                             <img className="animate-cloud max-w-none w-[4000px] h-auto absolute top-[70px]" src={cloud} alt="cloud" />
-                                            <button onClick={this.modal1} className="absolute left-buttonx1 bottom-buttony1 bg-button1 rounded-full py-1 px-3 items-center flex text-white text-lg w-fit">
-                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                            <button onClick={this.modal1} className="absolute left-buttonx1 bottom-buttony1 bg-button1 rounded-full  px-3 items-center flex text-white py-[3px] text-sm tracking-wider w-fit">
+                                                <img src={circle} className="w-4 h-4 inline mr-1" alt="circle" />
                                                 <span>Nuestros Planteles</span>
                                             </button>
-                                            <button onClick={this.modal2} className="absolute left-buttonx2 bottom-buttony2 bg-button2 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
-                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                            <button onClick={this.modal2} className="absolute left-buttonx2 bottom-buttony2 bg-button2 rounded-full px-3 items-center flex text-white py-[3px] text-sm tracking-wider w-fit">
+                                                <img src={circle} className="w-4 h-4 inline mr-1" alt="circle" />
                                                 <span>Oficina Central</span>
                                             </button>
-                                            <button onClick={this.modal3} className="absolute left-buttonx3 bottom-buttony3 bg-button3 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
-                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                            <button onClick={this.modal3} className="absolute left-buttonx3 bottom-buttony3 bg-button3 rounded-full px-3 items-center flex text-white py-[3px] text-sm tracking-wider w-fit">
+                                                <img src={circle} className="w-4 h-4 inline mr-1" alt="circle" />
                                                 <span>Historia</span>
                                             </button>
-                                            <button onClick={this.modal4} className="absolute left-buttonx4 bottom-buttony4 bg-button4 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
-                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                            <button onClick={this.modal4} className="absolute left-buttonx4 bottom-buttony4 bg-button4 rounded-full px-3 items-center flex text-white py-[3px] text-sm tracking-wider w-fit">
+                                                <img src={circle} className="w-4 h-4 inline mr-1" alt="circle" />
                                                 <span>Comunidades</span>
                                             </button>
-                                            <button onClick={this.modal5} className="absolute left-buttonx5 bottom-buttony5 bg-button5 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
-                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                            <button onClick={this.modal5} className="absolute left-buttonx5 bottom-buttony5 bg-button5 rounded-full px-3 items-center flex text-white py-[3px] text-sm tracking-wider w-fit">
+                                                <img src={circle} className="w-4 h-4 inline mr-1" alt="circle" />
                                                 <span>Producción Responsable</span>
                                             </button>
-                                            <button onClick={this.modal6} className="absolute left-buttonx6 bottom-buttony6 bg-button6 rounded-full px-3 items-center flex text-white py-1 text-lg w-fit">
-                                                <img src={circle} className="w-5 h-5 inline mr-1" alt="circle" />
+                                            <button onClick={this.modal6} className="absolute left-buttonx6 bottom-buttony6 bg-button6 rounded-full px-3 items-center flex text-white py-[3px] text-sm tracking-wider w-fit">
+                                                <img src={circle} className="w-4 h-4 inline mr-1" alt="circle" />
                                                 <span>Plantas Industriales</span>
                                             </button>
                                         </PrismaZoom>
